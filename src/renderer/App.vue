@@ -10,8 +10,8 @@
 import { inject } from 'vue';
 import Header from '@m/Header.vue'
 import Workspace from '@p/Workspace.vue'
-// const store = inject('store');
-// console.log('store', store);
+const store = inject('store');
+console.log('store', store);
 // window.electron.ipcRenderer.send('message', 'Hello from App.vue!');
 </script>
 <style lang="scss">
