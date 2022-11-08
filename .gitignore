@@ -6,3 +6,6 @@ build
 .idea
 
 **/*.secret.*
+.scannerwork
+scan.bat
+db.json

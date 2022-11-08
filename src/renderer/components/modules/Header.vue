@@ -1,14 +1,18 @@
 <template>
-    Header {{ localState.launchCounter }}
+    <div id="header">
+    🌐 HTTP Gate v0.1.0
+    </div>
 </template>
 <script setup lang="ts">
-import { inject, reactive, ref } from 'vue';
+import { inject, reactive } from 'vue';
 const store: any = inject('store');
-let localState = reactive({
-    launchCounter: 0
-});
-store.getLaunchCount().then((result: number): void => {
-    localState.launchCounter = result;
-});
 
 </script>
+
+<style lang="scss" scoped>
+#header {
+    background-color: #241b2f;
+    color: #fff;
+    padding: 5px;
+}
+</style>
