@@ -24,7 +24,7 @@ const store = {
             ]
         }
     }),
-    init(cb: Function) {
+    init(cb) {
         store.getLaunchCount().then(
             () => {
                 store.getStore().then(() => {
@@ -39,7 +39,7 @@ const store = {
                 .electron
                 .ipcRenderer
                 .invoke('getLaunchCount')
-                .then((result: any) => {
+                .then((result) => {
                     store.app.count = result;
                     resolve(result);
                 });
@@ -51,7 +51,7 @@ const store = {
                 .electron
                 .ipcRenderer
                 .invoke('getStore')
-                .then((result: any) => {
+                .then((result) => {
                     store.app.appState = result;
                     resolve(result);
                 });

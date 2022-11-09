@@ -4,7 +4,7 @@ import fs from 'fs';
 import { JsonDB, Config } from 'node-json-db';
 // const dbDir = resolve(app.getPath('userData') + '/db.json');
 const dbDir = './db.json';
-export let db: any;
+export let db;
 export async function initDb(cb) {
     if (fs.existsSync(dbDir)) {
 
@@ -53,7 +53,7 @@ export async function initDb(cb) {
     }
 }
 
-export let state: any;
+export let state;
 
 state = {
     blacklist: [],

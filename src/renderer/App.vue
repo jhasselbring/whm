@@ -11,30 +11,33 @@
   </section>
   <section id="chin">⏯</section>
 </template>
-<script setup lang="ts">
+<script setup>
 import { inject, onMounted } from 'vue';
 import Header from '@m/Header.vue';
 import Nav from "@m/Nav.vue";
 import Workspace from '@p/Workspace.vue';
-const store: any = inject('store');
+const store = inject('store');
 onMounted(() => {
   window.addEventListener('keyup', function (e) {
-    console.log('keyPress');
     if (e.key == 'Delete' && !e.altKey && !e.ctrlKey) {
-      console.log('keyPress Delete', store.app.appState.focus);
       if (store.app.appState.focus.type == 'redirectGroup') {
-        store.app.appState.groups.forEach((group: any, i: number) => {
-          if (group.name == store.app.appState.focus.name) {
-
-            var content = confirm("Are you sure you want to delete " + store.app.appState.focus.name); // The "hello" means to show the following text
-            if (content) {
-              store.app.appState.groups.splice(i, 1);
-              store.app.appState.focus.name = '';
-              store.app.appState.focus.type = '';
+        store.app.appState.groups.forEach((group, i) => {
+          if (group.name == store.app.appState.focus.group) {
+            var confirmation = confirm("Are you sure you want to delete " + store.app.appState.focus.name); // The "hello" means to show the following text
+            if (confirmation) {
+              store.app.appState.groups.splice(targetId, 1);
+              store.app.appState.focus = {}
             }
           }
         });
 
+      } else if (store.app.appState.focus.type == 'redirectGroupIP') {
+
+        var confirmation = confirm("Are you sure you want to delete " + store.app.appState.focus.name); // The "hello" means to show the following text
+        if (confirmation) {
+          delete store.app.appState.focus.group.ips[store.app.appState.focus.ip];
+          store.app.appState.focus = {}
+        }
       }
     }
 

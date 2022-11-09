@@ -3,9 +3,9 @@
     🌐 HTTP Gate v0.1.0
     </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { inject } from 'vue';
-const store: any = inject('store');
+const store = inject('store');
 
 </script>
 

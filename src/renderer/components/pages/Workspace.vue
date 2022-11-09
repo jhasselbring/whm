@@ -10,7 +10,7 @@
 
 </template>
 
-<script setup lang="ts">
+<script setup>
 import Explorer from "@m/Explorer.vue";
 import Editor from "@m/Editor.vue";
 </script>
@@ -18,7 +18,6 @@ import Editor from "@m/Editor.vue";
 #workspace {
     height: 100%;
     width: 100%;
-
     #explorer {
         background-color: #241b2f;
         resize:horizontal !important;

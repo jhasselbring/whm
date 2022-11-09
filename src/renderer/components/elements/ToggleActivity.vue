@@ -2,7 +2,7 @@
     <span class="toggle-activity no-select" v-if="props.group.enabled" @click="props.group.enabled = !props.group.enabled">🟢</span>
     <span class="toggle-activity no-select" v-else @click="props.group.enabled = !props.group.enabled">🔴</span>
 </template>
-<script setup lang="ts">
+<script setup>
 import { defineProps } from 'vue';
 const props = defineProps({
     group: Object

@@ -10,9 +10,9 @@
     <button @click="store.app.groups.testCounter++">TestCounter++</button>
     <button @click="store.app.count2++">TestCounter2++</button>
 </template>
-<script setup lang="ts">
+<script setup>
 import { inject } from 'vue';
-const store: any = inject('store');
+const store = inject('store');
 </script>
 <style lang="scss" scoped>
 #editor-container {

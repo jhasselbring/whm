@@ -9,19 +9,19 @@
         </div>
         <div>
             <div v-if="props.group.expanded" class="ip" v-for="(value, key) in props.group.ips" :key="key">
-                <RedirectGroupIP :ips="group.ips" :ipkey="key" />
+                <RedirectGroupIP :group="group" :ips="group.ips" :ipkey="key" />
             </div>
             <AddGroupIP :group="group" class="AddGroupIP" v-if="group.expanded" />
         </div>
     </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { defineProps, reactive, ref, nextTick, inject } from "vue";
 import ToggleView from "@e/ToggleView.vue";
 import RedirectGroupIP from "@e/RedirectGroupIP.vue";
 import ToggleActivity from "@e/ToggleActivity.vue";
 import AddGroupIP from "@e/AddGroupIP.vue";
-const store: any = inject("store");
+const store = inject("store");
 const props = defineProps({
     group: Object,
 });
@@ -39,13 +39,14 @@ function editName() {
     });
 }
 function select() {
+    store.app.appState.focus = {};
     store.app.appState.focus.type = "redirectGroup";
-    store.app.appState.focus.name = props.group.name;
+    store.app.appState.focus.group = props.group.name;
 }
 function isSelected() {
     return (
         store.app.appState.focus.type == "redirectGroup" &&
-        store.app.appState.focus.name == props.group.name
+        store.app.appState.focus.group == props.group.name
     );
 }
 </script>

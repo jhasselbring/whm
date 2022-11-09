@@ -7,12 +7,12 @@
     <AddGroup />
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import { inject } from "vue";
 
 import Group from "@m/Group.vue";
 import AddGroup from "@e/AddGroup.vue";
-const store: any = inject("store");
+const store = inject("store");
 
 function deleteItem() {
   console.log('Deleting',);

@@ -2,16 +2,16 @@
     <span><input @keyup.enter="add" autofocus type="text"
             id="addGroupInput" v-model="localState.newGroupName" /></span>
 </template>
-<script setup lang="ts">
+<script setup>
 import { reactive, inject } from "vue";
-const store: any = inject("store");
+const store = inject("store");
 const localState = reactive({
     active: true,
     newGroupName: "",
 });
 
 function add() {
-    let existing = store.app.appState.groups.filter(function (group: any) {
+    let existing = store.app.appState.groups.filter(function (group) {
         return group.name == localState.newGroupName;
     });
     if (existing.length > 0) {
