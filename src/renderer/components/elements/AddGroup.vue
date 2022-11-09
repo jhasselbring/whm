@@ -1,48 +1,31 @@
 <template>
-    <span v-if="localState.active"><input @keyup.enter="add" ref="addGroupInput" @blur="hide" autofocus type="text"
+    <span><input @keyup.enter="add" autofocus type="text"
             id="addGroupInput" v-model="localState.newGroupName" /></span>
-    <button v-else="!localState.active" id="addGroupButton" @click="show">➕</button>
 </template>
 <script setup lang="ts">
-import { reactive, ref, inject, nextTick } from "vue";
+import { reactive, inject } from "vue";
 const store: any = inject("store");
-const addGroupInput = ref(null);
 const localState = reactive({
-    active: false,
-    newGroupName: ''
+    active: true,
+    newGroupName: "",
 });
-
-function hide() {
-    console.log('hide');
-    localState.active = false;
-}
-
-function show() {
-    console.log(addGroupInput.value);
-    localState.active = true;
-    nextTick(() => {
-        addGroupInput.value.focus();
-    })
-}
 
 function add() {
     let existing = store.app.appState.groups.filter(function (group: any) {
         return group.name == localState.newGroupName;
     });
-    if(existing.length > 0){
+    if (existing.length > 0) {
         return false;
-    }else{
+    } else {
         store.app.appState.groups.push({
             name: localState.newGroupName,
             enabled: false,
             ips: {},
-            expanded: true
+            expanded: true,
         });
-        localState.newGroupName = '';
-        localState.active = false;
+        localState.newGroupName = "";
     }
 }
-
 </script>
 <style lang="scss" scoped>
 #addGroupInput {
@@ -52,6 +35,7 @@ function add() {
     height: 24px;
     background-color: #262335;
 }
+
 #addGroupButton {
     background-color: green;
     width: 100%;
@@ -63,8 +47,9 @@ function add() {
         background-color: rgb(0, 174, 0);
     }
 }
-.error{
+
+.error {
     border: 1px solid red;
-    background-color: rgba(255,0,0, .1);
+    background-color: rgba(255, 0, 0, 0.1);
 }
 </style>

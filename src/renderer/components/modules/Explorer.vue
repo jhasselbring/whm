@@ -1,5 +1,5 @@
 <template>
-  <div class="title">Explorer</div>
+  <div class="title" @keyupdown="deleteItem">Explorer</div>
   <div id="explorer-content">
     <div v-for="group in store.app.appState.groups">
       <Group :group="group" />
@@ -8,11 +8,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { inject, reactive } from "vue";
+import { inject } from "vue";
 
 import Group from "@m/Group.vue";
 import AddGroup from "@e/AddGroup.vue";
 const store: any = inject("store");
+
+function deleteItem() {
+  console.log('Deleting',);
+}
 </script>
 <style lang="scss" scoped>
 .title {

@@ -4,7 +4,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { inject, reactive } from 'vue';
+import { inject } from 'vue';
 const store: any = inject('store');
 
 </script>

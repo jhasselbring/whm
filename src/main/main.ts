@@ -2,7 +2,7 @@ import { app, BrowserWindow, ipcMain, session } from 'electron';
 import http from 'http';
 import setup from './proxy';
 import { join } from 'path';
-import { initDb, db, state } from './store'
+import { initDb, db } from './store'
 console.clear();
 console.log('#####################################################');
 initDb(() => {
@@ -69,6 +69,5 @@ ipcMain.handle('getStore', async (event, someArgument) => {
 })
 
 ipcMain.handle('updateStore', async (event, updatedGroup) => {
-  console.log('updateStore', state);
   db.push("/appState", updatedGroup);
 })

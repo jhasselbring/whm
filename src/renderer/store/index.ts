@@ -7,9 +7,13 @@ const store = {
         // Anything inside of appState will be persited automatically via watch() -> updateStore()
         appState: {
             page: "workspace",
+            focus:{
+                type: '',
+                name: ''
+            },
             groups: [
                 {
-                    name: "📂Test",
+                    name: "📂Default",
                     enabled: true,
                     ips: {
                         "127.0.0.1": [
@@ -48,14 +52,12 @@ const store = {
                 .ipcRenderer
                 .invoke('getStore')
                 .then((result: any) => {
-                    console.log('getStore', result);
                     store.app.appState = result;
                     resolve(result);
                 });
         });
     },
     updateStore() {
-        console.log('Updating Store via updateStore()');
         window
             .electron
             .ipcRenderer
@@ -68,7 +70,6 @@ const store = {
 watch(
     () => store.app.appState,
     () => {
-        console.log('Detected appState change via watch()');
         store.updateStore();
     },
     { deep: true }
