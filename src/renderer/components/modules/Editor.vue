@@ -1,14 +1,12 @@
 <template>
     <div id="editor-container">
         <div id="redirect-group-ip-editor">
-            <textarea></textarea>
+            <textarea v-if="store.app.appState.focus.group" v-model="store.app.appState.focus.group.ips[store.app.appState.focus.ip]"></textarea>
         </div>
         <div>
             <pre>{{ store }}</pre>
         </div>
     </div>
-    <button @click="store.app.groups.testCounter++">TestCounter++</button>
-    <button @click="store.app.count2++">TestCounter2++</button>
 </template>
 <script setup>
 import { inject } from 'vue';

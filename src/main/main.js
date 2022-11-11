@@ -1,8 +1,8 @@
-import { app, BrowserWindow, ipcMain, session } from 'electron';
+import { app, BrowserWindow, ipcMain, session, dialog } from 'electron';
 import http from 'http';
 import setup from './proxy';
 import { join } from 'path';
-import { initDb, db } from './store'
+import { initDb, db, redirectMap, updateRedirectMap } from './store'
 console.clear();
 console.log('#####################################################');
 initDb(() => {
@@ -43,7 +43,7 @@ function createWindow() {
       contextIsolation: true,
     }
   });
-
+  mainWindow.setMenu(null);
   if (process.env.NODE_ENV === 'development') {
     const rendererPort = process.argv[2];
     mainWindow.loadURL(`http://localhost:${rendererPort}`);
@@ -57,17 +57,22 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 });
 
-ipcMain.on('message', (event, message) => {
-  console.log(message);
-});
-
-ipcMain.handle('getLaunchCount', async (event, someArgument) => {
-  return db.getData("/launchCount");
-})
 ipcMain.handle('getStore', async (event, someArgument) => {
   return db.getData("/appState");
 })
 
 ipcMain.handle('updateStore', async (event, updatedGroup) => {
   db.push("/appState", updatedGroup);
+})
+
+ipcMain.handle('delete', async (event, deletePath) => {
+  let options = {
+    buttons: ["Yes", "No", "Cancel"],
+    message: `Do you really want to delete ${deletePath}?`
+  }
+  return dialog.showMessageBox(options)
+})
+
+ipcMain.handle('updateRedirectMap', async (event, newRedirectMap) => {
+  updateRedirectMap(newRedirectMap);
 })

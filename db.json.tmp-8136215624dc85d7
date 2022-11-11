@@ -1,0 +1,62 @@
+{
+    "launchCount": 209,
+    "appState": {
+        "page": "workspace",
+        "groups": [
+            {
+                "name": "🔥Default",
+                "enabled": false,
+                "ips": {
+                    "127.0.0.1": "localhost\nbovedainc.com\nwww.bovedainc.com"
+                },
+                "expanded": false
+            },
+            {
+                "name": "📂Boveda - Jay Dev",
+                "enabled": false,
+                "ips": {
+                    "3.18.98.5": "bovedainc.com\nwww.bovedainc.com"
+                },
+                "expanded": false
+            },
+            {
+                "name": "🎥Local YTH BE",
+                "enabled": true,
+                "ips": {
+                    "127.0.0.1": "youtube.cm\nwww.youtube.cm"
+                },
+                "expanded": false
+            },
+            {
+                "name": "🛑Blocks",
+                "enabled": true,
+                "ips": {
+                    "0.0.0.0": "clients4.google.com\nps4.pndsn.com\nsafebrowsing.googleapis.com\nfonts.gstatic.com\nv10.events.data.microsoft.com#  Microsoft telemetry\nyt3.ggpht.com\nbeacons.gcp.gvt2.com"
+                },
+                "expanded": true
+            },
+            {
+                "name": "🧪Test",
+                "enabled": true,
+                "ips": {
+                    "0.0.0.0": "thisav.co\nwww.pornohype.info\ncrl.apple.com\nimg-egc.xvideos.com\nwww.pornowatch.net\nsoasianporn.com"
+                },
+                "expanded": true
+            }
+        ],
+        "focus": {
+            "type": "redirectGroupIP",
+            "group": {
+                "name": "🧪Test",
+                "enabled": false,
+                "ips": {
+                    "0.0.0.0": "thisav.co\nwww.pornohype.info\ncrl.apple.com\nimg-egc.xvideos.com\nwww.pornowatch.net\nsoasianporn.com\nav.nyuu.info\nstatic1.faperoni.com\nwarashi-asian-pornstars.fr"
+                },
+                "expanded": true
+            },
+            "name": "🧪Test",
+            "ip": "0.0.0.0"
+        },
+        "redirectGroupFlat": {}
+    }
+}

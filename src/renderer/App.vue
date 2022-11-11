@@ -1,7 +1,7 @@
 <template>
-  <section id="forehead">
+  <!-- section id="forehead">
     <Header />
-  </section>
+  </section -->
   <section id="face">
     <Nav />
     <div id="page-container">
@@ -17,28 +17,31 @@ import Header from '@m/Header.vue';
 import Nav from "@m/Nav.vue";
 import Workspace from '@p/Workspace.vue';
 const store = inject('store');
+
 onMounted(() => {
   window.addEventListener('keyup', function (e) {
     if (e.key == 'Delete' && !e.altKey && !e.ctrlKey) {
-      if (store.app.appState.focus.type == 'redirectGroup') {
-        store.app.appState.groups.forEach((group, i) => {
-          if (group.name == store.app.appState.focus.group) {
-            var confirmation = confirm("Are you sure you want to delete " + store.app.appState.focus.name); // The "hello" means to show the following text
-            if (confirmation) {
-              store.app.appState.groups.splice(targetId, 1);
+      window
+        .electron
+        .ipcRenderer
+        .invoke('delete', 'Some > Path').then(response => {
+          if (response && response.response == 0) {
+            if (store.app.appState.focus.type == 'redirectGroup') {
+              store.app.appState.groups.forEach((group, i) => {
+                if (group.name == store.app.appState.focus.group) {
+                  store.app.appState.groups.splice(i, 1);
+                  store.app.appState.focus = {}
+                }
+              });
+
+            } else if (store.app.appState.focus.type == 'redirectGroupIP') {
+              delete store.app.appState.focus.group.ips[store.app.appState.focus.ip];
               store.app.appState.focus = {}
             }
           }
-        });
+          console.log('response from main', response);
 
-      } else if (store.app.appState.focus.type == 'redirectGroupIP') {
-
-        var confirmation = confirm("Are you sure you want to delete " + store.app.appState.focus.name); // The "hello" means to show the following text
-        if (confirmation) {
-          delete store.app.appState.focus.group.ips[store.app.appState.focus.ip];
-          store.app.appState.focus = {}
-        }
-      }
+        })
     }
 
   });
@@ -51,11 +54,12 @@ onMounted(() => {
 #forhead {
   height: 20px;
   overflow: hidden;
+  display: none;
 }
 
 #face {
   display: flex;
-  height: calc(100% - 45px);
+  height: calc(100% - 45px + 20px);
   overflow: hidden;
 
   &>#page-container {

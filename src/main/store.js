@@ -5,6 +5,10 @@ import { JsonDB, Config } from 'node-json-db';
 // const dbDir = resolve(app.getPath('userData') + '/db.json');
 const dbDir = './db.json';
 export let db;
+export let redirectMap = {};
+export function updateRedirectMap(newredirectMap) {
+    redirectMap = newredirectMap;
+}
 export async function initDb(cb) {
     if (fs.existsSync(dbDir)) {
 
@@ -33,14 +37,9 @@ export async function initDb(cb) {
             }
         }
         db.push("/appState", appState);
-
-        db.getData('/launchCount').then(currentCount => {
-            db.push('/launchCount', currentCount + 1);
-            cb();
-        });
+        cb();
     } else {
         let initialDb = {
-            launchCount: 1,
             appState: {
                 page: 'workspace',
                 groups: []

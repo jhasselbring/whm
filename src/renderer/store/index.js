@@ -4,10 +4,11 @@ const store = {
     app: reactive({
         count: null,
         count2: 5,
+        redirectGroupFlat: {},
         // Anything inside of appState will be persited automatically via watch() -> updateStore()
         appState: {
             page: "workspace",
-            focus:{
+            focus: {
                 type: '',
                 name: ''
             },
@@ -21,28 +22,13 @@ const store = {
                         ]
                     }
                 }
-            ]
+            ],
+
         }
     }),
     init(cb) {
-        store.getLaunchCount().then(
-            () => {
-                store.getStore().then(() => {
-                    cb();
-                });
-            }
-        );
-    },
-    getLaunchCount() {
-        return new Promise((resolve, reject) => {
-            window
-                .electron
-                .ipcRenderer
-                .invoke('getLaunchCount')
-                .then((result) => {
-                    store.app.count = result;
-                    resolve(result);
-                });
+        store.getStore().then(() => {
+            cb();
         });
     },
     getStore() {
@@ -62,6 +48,34 @@ const store = {
             .electron
             .ipcRenderer
             .invoke('updateStore', JSON.parse(JSON.stringify(store.app.appState)));
+    },
+    buildRedirectObject() {
+        // Initialize empty object which will be the payload to be sent to Main
+        let newRedirectMap = {};
+        let enabledGroups = store.app.appState.groups.filter(group => group.enabled == true);
+        enabledGroups.forEach(group => {
+            for (const ip in group.ips) {
+                let domains = group.ips[ip].split('\n');
+                domains.forEach(domain => {
+                    if (domain.startsWith('#')) {
+                        console.log(`${domain} has been commented out`);
+                    } else {
+                        if (domain.includes('#')) {
+                            domain = domain.split('#')[0];
+                        }
+                        if (!newRedirectMap[domain]) {
+                            newRedirectMap[domain] = ip;
+                        }
+                    }
+
+                })
+
+            }
+        });
+        window
+            .electron
+            .ipcRenderer
+            .invoke('updateRedirectMap', newRedirectMap);
     }
 }
 
@@ -71,6 +85,7 @@ watch(
     () => store.app.appState,
     () => {
         store.updateStore();
+        store.buildRedirectObject();
     },
     { deep: true }
 )
